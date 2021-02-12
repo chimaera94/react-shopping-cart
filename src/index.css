@@ -1,6 +1,6 @@
 @import url("https://fonts.google.com/css2?family=Montserrat&display=swap");
 html{
-    font-size: 82.5%;
+    font-size: 72.5%;
     box-sizing: border-box;
 }
 
@@ -69,10 +69,7 @@ footer{
 .sidebar{
     flex: 1 20rem;
 }
-img{
-    xmax-height: 450px;
-    xmax-width: 250px;
-}
+
 .primary{
     background-color: #ff8000;
     color: #000;
@@ -128,4 +125,16 @@ img{
 }
 .button.primary{
     background-color: #ffc040;
+}
+
+/* Filter */
+.filter{
+    display: flex;
+    padding: 1rem;
+    margin: 1rem;
+    border-bottom: .1rem #c0c0c0 solid;
+    justify-content: space-between;
+}
+.filter div{
+    flex: 1;
 }
