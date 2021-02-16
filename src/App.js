@@ -7,19 +7,30 @@ import Cart from './components/Cart';
 
 
 class App extends React.Component  {
+  //The constructor is a method used to initialize an object's state in a class.
+  //It automatically called during the creation of an object in a class.
+  //Always call super() method to prevent 'undefined' error.
   constructor(){
     super();
+    //State of a component is an object that holds some information that may change over the lifetime of the component.
     this.state = {
       products: data.products,
-      cartItems: [],
+      //check if item exists, else use array []
+      //localStorage is used to save some user data in the local browser. more like a cookie.
+      cartItems: localStorage.getItem("cartItems")? JSON.parse(localStorage.getItem("cartItems")):[],
       size: "",
       sort:"",
     };
   }
+  createOrder = (order) =>{
+
+    alert("Need to save order for " + order.name)
+  };
   removeFromCart=(product) => {
+    //.slice() is used to return selected elements in an array.
     const cartItems = this.state.cartItems.slice();
-    this.setState({cartItems: cartItems.filter(x=>x._id !== product._id)})
-    
+    this.setState({cartItems: cartItems.filter(x=>x._id !== product._id)});
+    localStorage.setItem("cartItems",JSON.stringify(cartItems.filter(x=>x._id !== product._id)));
   }
 
   addToCart = (product) =>{
@@ -38,10 +49,14 @@ class App extends React.Component  {
       cartItems.push({...product, count:1});
 
     }
+    //set the state or cartItems
     this.setState({cartItems}); 
+    //saving the item in localstorage.
+    localStorage.setItem("cartItems",JSON.stringify(cartItems));
   };
   sortProducts = (event) =>{
     //implement
+    //const means constant, which indicates the variable’s value won’t change.
     const sort = event.target.value;
     console.log(event.target.value);
     this.setState((state) => ({
@@ -92,7 +107,8 @@ class App extends React.Component  {
             <Products products={this.state.products} addToCart={this.addToCart}></Products>
           </div>
           <div className="sidebar">
-           <Cart cartItems={this.state.cartItems} removeFromCart={this.removeFromCart}/>
+           <Cart cartItems={this.state.cartItems} removeFromCart={this.removeFromCart}
+           createOrder={this.createOrder}/>
            
           </div>
         </div>
